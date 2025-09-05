@@ -1,7 +1,7 @@
 'use strict';
 
 /*
- * APELLIDO, NOMBRE | APELLIDO, NOMBRE
+ * PERALTA, JUAN IGNACIO | LEBEDA, LUCA
  */
 
 // Ejemplo de la estructura de un disco:
