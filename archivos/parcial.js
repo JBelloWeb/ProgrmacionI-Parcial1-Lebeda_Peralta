@@ -128,14 +128,30 @@ const Cargar = () => {
         confirmar = confirm('¿Queres Ingresár otro disco?');
     }while(confirmar)
 
+        console.table(discos);
 };
 
 // Función Mostrar:
 const Mostrar = () => {
     // Variable para ir armando la cadena:
     let html = '';
-
     // Cositas:
+    for(let disco of discos) {
+        html += "<ul>";
+        html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
+        <li><strong>Autor: </strong>${disco.Autor}</li>
+        <li><strong>Codigo Único: </strong>${disco.Codigo}</li>`;
+
+        for(let pista of disco.Pistas) {
+            html += `<li><strong>Pista: </strong>${pista.Nombre}</li>`;
+            if(parseInt(pista.Duracion) > 180) {
+                html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span>`;
+            } else {
+                html += `<li><strong>Duración: </strong>${pista.Duracion}`;
+            }
+        }
+        html += "</ul>";
+    }
 
     // Si modificaste el nombre de la variable para ir armando la cadena, también hacelo acá:
     document.getElementById('info').innerHTML = html; // <--- ahí es acá
