@@ -69,6 +69,11 @@ div.flex-box {
     box-shadow: 0px 0px 28px 10px rgba(0, 0, 0, .1);
 }
 
+.box-shadow-red {
+    background-color: var(--whiteDV);
+    box-shadow: 0px 0px 28px 10px rgba(255, 0, 0, 0.47);
+}
+
 .bg-green{
     background-color: var(--greenDV);
 }

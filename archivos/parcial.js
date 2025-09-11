@@ -38,7 +38,7 @@
 // };
 
 // Discos:
-let discos = [];
+let discos = [], discoMayor;
 
 // Función Cargar:
 const Cargar = () => {
@@ -145,7 +145,11 @@ const Mostrar = () => {
     let html = '', pistaMayor;
     // Cositas:
     for(let disco of discos) {
-        html += "<div class='box box-shadow' ><ul>";
+        if(DiscoMasExtenso(disco.DuracionTotal) == true) {
+            html += "<div class='box box-shadow-red' ><ul>";
+        } else {
+            html += "<div class='box box-shadow' ><ul>";
+        }
         html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
         <li><strong>Autor: </strong>${disco.Autor}</li>
         <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
@@ -182,5 +186,19 @@ const Mostrar = () => {
     // Si modificaste el nombre de la variable para ir armando la cadena, también hacelo acá:
     document.getElementById('info').innerHTML = html; // <--- ahí es acá
 };
+
+const DiscoMasExtenso = (d) => {
+    let resultado;
+    if(discoMayor == null || d > discoMayor){
+        discoMayor = d;
+        resultado = true;
+    }
+    else {
+        resultado = false;
+    }
+
+    return resultado;
+}
+
 
 // Todas las funciones que necesites:
