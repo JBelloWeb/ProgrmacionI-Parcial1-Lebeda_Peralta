@@ -145,7 +145,7 @@ const Mostrar = () => {
     let html = '', pistaMayor;
     // Cositas:
     for(let disco of discos) {
-        html += "<div class='box' ><ul>";
+        html += "<div class='box box-shadow' ><ul>";
         html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
         <li><strong>Autor: </strong>${disco.Autor}</li>
         <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
@@ -164,12 +164,12 @@ const Mostrar = () => {
 
 
         for(let pista of disco.Pistas) {
-            html += '<div class="divPistas" >';
-            html += `<li><strong>Pista: </strong>${pista.Nombre}</li>`;
+            html += '<div class="divPistas " >';
+            html += `<li><strong>Pista: </strong><span class="whiteColor">${pista.Nombre}</span></li>`;
             if(parseInt(pista.Duracion) > 180) {
                 html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span></li>`;
             } else {
-                html += `<li><strong>Duración: </strong>${pista.Duracion}</li>`;
+                html += `<li><strong>Duración: </strong><span class="whiteColor">${pista.Duracion}</span></li>`;
             }
             html += '</div>';
         }

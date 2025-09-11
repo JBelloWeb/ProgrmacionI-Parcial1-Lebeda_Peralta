@@ -1,0 +1,176 @@
+@font-face {
+    font-family: 'MonReg';
+    src: url(/fonts/MontserratAlternates-Regular.ttf);
+
+    font-family: 'MonBold';
+    src: url(/fonts/MontserratAlternates-Bold.ttf);
+
+    font-family: 'MonLight';
+    src: url(/fonts/MontserratAlternates-Light.ttf);
+}
+
+:root {
+    --blackDV: #141516;
+    --whiteDV: #FDFDFD;
+    --pinkDV: #DB0F80;
+    --greenDV: #0CE8AB;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    line-height: 1.4;
+    font-family: 'MonReg';
+}
+
+header{
+    color: var(--whiteDV);
+    height: 10vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+h2{
+  font-size: 2em;  
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--blackDV);
+    display: grid;
+}
+
+main
+{
+    padding: 20px 0;
+    min-height: 80vh;
+    background-color: var(--whiteDV);
+}
+
+div.flex-box {
+    margin: 50px;
+}
+
+.flex-box {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.box-shadow {
+    background-color: var(--whiteDV);
+    box-shadow: 0px 0px 28px 10px rgba(0, 0, 0, .1);
+}
+
+.bg-green{
+    background-color: var(--greenDV);
+}
+
+.bg-pink{
+    background-color: var(--pinkDV);
+}
+
+.bg-dark{
+    background-color: var(--blackDV);
+    color: var(--whiteDV);
+    padding: 10px;
+    padding-right: 30px;
+    border-radius: 0 20px 20px 0;
+}
+
+
+.button {
+    background-color: var(--pinkDV);
+    color: var(--whiteDV);
+    border: 5px solid var(--pinkDV);
+    border-radius: 3rem;
+    padding: 1rem 1.6em;
+    font-family: 'MontBold';
+    font-size: 1.6rem;
+    font-weight: 700;
+    transition: all .3s;
+
+    &&:hover {
+        background-color: var(--whiteDV);
+        color: var(--pinkDV);
+        box-shadow: 0px 0px 19px 0px #db0f7f36;
+        cursor: pointer;
+    }
+}
+
+#info {
+    display: flex;
+}
+
+.redColor {
+    color: red;
+
+}
+
+.whiteColor {
+    color: var(--whiteDV);
+}
+
+.box{
+    font-size: 1.5em;
+    min-width: 20vw;
+    width: 20vw;
+    max-width: 30vw;
+    display: flex;
+    margin: 25px;
+    padding: 15px;
+    background-color: var(--whiteDV);
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.box ul li{
+    list-style: none;
+    color: #242527;
+    font-family: 'MontLight';
+}
+
+.box strong{
+    color: var(--blackDV);
+}
+
+.divPistas{
+    margin-top: 10px;
+    background-color: #36393c;
+    color: var(--whiteDV);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    strong{color: var(--whiteDV);}
+    li {
+        color: var(--whiteDV);
+    }
+}
+
+footer {
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    color: var(--whiteDV);
+    li {
+        list-style: none;
+    }
+    a{
+        color: var(--greenDV);
+    }
+}
+
+@media screen and (width <= 500px) {
+    .flex-box{
+        flex-direction: column;
+    }
+}
