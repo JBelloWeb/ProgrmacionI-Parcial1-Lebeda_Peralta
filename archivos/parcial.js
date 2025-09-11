@@ -43,7 +43,7 @@ let discos = [];
 // Función Cargar:
 const Cargar = () => {
     // Cositas:
-    let confirmar;
+    let confirmar, acumDisco = 1;
     do{
         let disco, nombreDisco, nombreAutor, codigoUnico, pista, confirmarPistas, acumPista = 1;
         
@@ -51,12 +51,14 @@ const Cargar = () => {
             Nombre: '',
             Autor: '',
             Codigo: '',
-            Pistas: []
+            Pistas: [],
+            CantidadPistas: 0,
+            DuracionTotal: 0
         }    
 
         //Validación de "Nombre:"
         do {
-            nombreDisco = prompt(`¿Cual es el nombre del disco?`);
+            nombreDisco = prompt(`¿Cual es el nombre del disco ${acumDisco}°?`);
             if (nombreDisco==null || nombreDisco=='') {
                 alert('Por favor, ingresá al menos un caracter');
             }
@@ -66,7 +68,7 @@ const Cargar = () => {
 
         //Validación de "Autor:"
         do {
-            nombreAutor = prompt(`¿Quien es el autor o banda del disco "${nombreDisco}"?`);
+            nombreAutor = prompt(`¿Quien es el autor o banda del disco ${acumDisco}° ("${nombreDisco}")?`);
             if (nombreAutor==null || nombreAutor=='') {
                 alert('Por favor, ingresá al menos un caracter');
             }
@@ -75,7 +77,7 @@ const Cargar = () => {
 
         //Validación de "Codigo:"
         do {
-            codigoUnico = parseInt(prompt(`Introduce el código numérico único del disco "${nombreDisco}"`));
+            codigoUnico = parseInt(prompt(`Introduce el código numérico único del disco ${acumDisco}° ("${nombreDisco}")`));
             if (isNaN(codigoUnico) || codigoUnico < 1 || codigoUnico > 999) {
                 alert('El código debe ser un número entre 1 y 999.');
             }
@@ -88,7 +90,7 @@ const Cargar = () => {
 
         //Validación de "Pistas[]"
         do{
-            let nombrePista, duracionPista; 
+            let nombrePista, duracionPista;
 
             pista = {
                 Nombre: '',
@@ -98,7 +100,7 @@ const Cargar = () => {
 
             //Validación de "Nombre:" en "pista{}";
             do {
-                nombrePista = prompt(`¿Cual es el nombre de la pista ${acumPista}° del disco "${nombreDisco}"?`);
+                nombrePista = prompt(`¿Cual es el nombre de la pista ${acumPista}° del disco ${acumDisco}° ("${nombreDisco}")?`);
                 if (nombrePista==null || nombrePista=='') {
                     alert('Por favor, ingresá al menos un caracter');
                 }
@@ -108,7 +110,7 @@ const Cargar = () => {
 
             //Validación de "Duracion:" en "pista{}";
             do {
-                duracionPista = parseInt(prompt(`¿Cual es la duracion de la pista ${acumPista}° (en segundos) del disco "${nombreDisco}"?`));
+                duracionPista = parseInt(prompt(`¿Cual es la duracion de la pista ${acumPista}° (en segundos) del disco ${acumDisco}° ("${nombreDisco}")?`));
                 if (isNaN(duracionPista) || duracionPista < 0 || duracionPista > 7200) {
                     alert('La duracion debe ser un numero entre 0 y 7200 segundos');
                 }
@@ -117,15 +119,21 @@ const Cargar = () => {
 
             disco.Pistas.push(pista);
 
-            confirmarPistas = confirm('¿Queres ingresar otra pista?');
+            disco.DuracionTotal += pista.Duracion;
+            disco.CantidadPistas++;
 
-            acumPista++
+            confirmarPistas = confirm('¿Queres ingresar la pista numero ' + (acumPista+1) + '°?');
+
+            acumPista++;
 
         }while(confirmarPistas)
         
         discos.push(disco);    // Ingreso el objeto "disco{Nombre,Autor,etc}" al array "discos[]";
 
-        confirmar = confirm('¿Queres Ingresár otro disco?');
+        confirmar = confirm('¿Queres Ingresár el disco numero ' + (acumDisco+1) + '°?');
+
+        acumDisco++;
+
     }while(confirmar)
 
         console.table(discos);
@@ -134,23 +142,41 @@ const Cargar = () => {
 // Función Mostrar:
 const Mostrar = () => {
     // Variable para ir armando la cadena:
-    let html = '';
+    let html = '', pistaMayor;
     // Cositas:
     for(let disco of discos) {
-        html += "<ul>";
+        html += "<div class='box' ><ul>";
         html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
         <li><strong>Autor: </strong>${disco.Autor}</li>
-        <li><strong>Codigo Único: </strong>${disco.Codigo}</li>`;
+        <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
+        <li><strong>Cantidad de pistas: </strong>${disco.CantidadPistas}</li>
+        <li><strong>Duracion total del disco: </strong>${disco.DuracionTotal}</li>
+        <li><strong>Promedio de duracion del disco: </strong>${disco.DuracionTotal/disco.CantidadPistas}</li>`;
 
-        for(let pista of disco.Pistas) {
-            html += `<li><strong>Pista: </strong>${pista.Nombre}</li>`;
-            if(parseInt(pista.Duracion) > 180) {
-                html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span>`;
-            } else {
-                html += `<li><strong>Duración: </strong>${pista.Duracion}`;
+        pistaMayor = disco.Pistas[0];
+        for (let i = 1; i<disco.Pistas.length; i++){
+            if (pistaMayor.Duracion < disco.Pistas[i].Duracion){
+                pistaMayor = disco.Pistas[i];
             }
         }
-        html += "</ul>";
+
+        html += `<li><strong>Pista con mayor duración: </strong>${pistaMayor.Duracion}</li>`;
+
+
+        for(let pista of disco.Pistas) {
+            html += '<div class="divPistas" >';
+            html += `<li><strong>Pista: </strong>${pista.Nombre}</li>`;
+            if(parseInt(pista.Duracion) > 180) {
+                html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span></li>`;
+            } else {
+                html += `<li><strong>Duración: </strong>${pista.Duracion}</li>`;
+            }
+            html += '</div>';
+        }
+        
+
+
+        html += "</ul></div>";
     }
 
     // Si modificaste el nombre de la variable para ir armando la cadena, también hacelo acá:
