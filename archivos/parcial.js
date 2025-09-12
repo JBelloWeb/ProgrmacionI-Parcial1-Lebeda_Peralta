@@ -164,7 +164,7 @@ const Mostrar = () => {
             }
         }
 
-        html += `<li><strong>Pista con mayor duración: </strong>${pistaMayor.Duracion}</li>`;
+        html += `<li><strong>Pista con mayor duración: </strong>${pistaMayor.Nombre} (${pistaMayor.Duracion} seg)</li>`;
 
 
         for(let pista of disco.Pistas) {
@@ -200,5 +200,51 @@ const DiscoMasExtenso = (d) => {
     return resultado;
 }
 
+const CodigoNumerico = () => {
+    let codigoBuscado = parseInt(prompt("Ingrese el código del disco YA INGRESADO que quiere ver:"));
+    let encontrado = false;
+
+    for (let disco of discos) {
+        if (disco.Codigo === codigoBuscado) {
+            let html = "<div class='box box-shadow'><ul>";
+            html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
+            <li><strong>Autor: </strong>${disco.Autor}</li>
+            <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
+            <li><strong>Cantidad de pistas: </strong>${disco.CantidadPistas}</li>
+            <li><strong>Duración total del disco: </strong>${disco.DuracionTotal}</li>
+            <li><strong>Promedio de duración del disco: </strong>${disco.DuracionTotal / disco.CantidadPistas}</li>`;
+
+            
+            let pistaMayor = disco.Pistas[0];
+            for (let i = 1; i < disco.Pistas.length; i++) {
+                if (pistaMayor.Duracion < disco.Pistas[i].Duracion) {
+                    pistaMayor = disco.Pistas[i];
+                }
+            }
+            html += `<li><strong>Pista con mayor duración: </strong>${pistaMayor.Nombre} (${pistaMayor.Duracion} seg)</li>`;
+
+            
+            for (let pista of disco.Pistas) {
+                html += '<div class="divPistas">';
+                html += `<li><strong>Pista: </strong><span class="whiteColor">${pista.Nombre}</span></li>`;
+                if (parseInt(pista.Duracion) > 180) {
+                    html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span></li>`;
+                } else {
+                    html += `<li><strong>Duración: </strong><span class="whiteColor">${pista.Duracion}</span></li>`;
+                }
+                html += '</div>';
+            }
+
+            html += "</ul></div>";
+            document.getElementById('info').innerHTML = html;
+            encontrado = true;
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        alert("No se encontró ningún disco con ese código.");
+    }
+};
 
 // Todas las funciones que necesites:
