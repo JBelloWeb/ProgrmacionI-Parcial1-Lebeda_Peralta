@@ -167,7 +167,7 @@ const Mostrar = () => {
         disco.MayorDuracion = MarcarMayor(disco.DuracionTotal);
         if(disco.MayorDuracion == true){
             if(disco.Seleccionado == true) {
-                html += `<div class='discoMayor seleccionado'><img src="/media/vinilo-r.png" alt="Disco"><ul>`;
+                html += `<div class='discoMayor seleccionado'><img src="media/vinilo-r.png" alt="Disco"><ul>`;
                 html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
                 <li><strong>Autor: </strong>${disco.Autor}</li>
                 <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
@@ -175,7 +175,7 @@ const Mostrar = () => {
                 <li><strong>Duracion total: </strong>${disco.DuracionTotal}</li>
                 <li><strong>Promedio de duracion: </strong>${disco.DuracionTotal/disco.CantidadPistas}</li>`;
             } else {
-                html += `<div class='discoMayor'><img src="/media/vinilo-r.png" alt="Disco"><ul>`;
+                html += `<div class='discoMayor'><img src="media/vinilo-r.png" alt="Disco"><ul>`;
                 html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
                 <li><strong>Autor: </strong>${disco.Autor}</li>
                 <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
@@ -186,7 +186,7 @@ const Mostrar = () => {
             
         } else {
             if(disco.Seleccionado == true){
-                html += `<div class='disco seleccionado'><img src="/media/vinilo-v.png" alt="Disco"><ul>`;
+                html += `<div class='disco seleccionado'><img src="media/vinilo-v.png" alt="Disco"><ul>`;
             html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
             <li><strong>Autor: </strong>${disco.Autor}</li>
             <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
@@ -194,7 +194,7 @@ const Mostrar = () => {
             <li><strong>Duracion total: </strong>${disco.DuracionTotal}</li>
             <li><strong>Promedio de duracion: </strong>${disco.DuracionTotal/disco.CantidadPistas}</li>`;
             } else {
-                html += `<div class='disco'><img src="/media/vinilo-v.png" alt="Disco"><ul>`;
+                html += `<div class='disco'><img src="media/vinilo-v.png" alt="Disco"><ul>`;
                 html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
                 <li><strong>Autor: </strong>${disco.Autor}</li>
                 <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
@@ -221,12 +221,12 @@ const Mostrar = () => {
 
         for(let pista of disco.Pistas) {
             if(disco.MayorDuracion == true) {
-                html += '<div class="divPistasMayor ">';
-                html += `<li><strong>Pista: </strong><span class="whiteColor">${pista.Nombre}</span></li>`;
+                html += '<div class="divPistasMayor">';
+                html += `<li><strong>Pista: </strong><span>${pista.Nombre}</span></li>`;
                 if(parseInt(pista.Duracion) > 180) {
-                    html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span></li>`;
+                    html += `<li><strong>Duración: </strong><span class="purpleColor">${pista.Duracion}</span></li>`;
                 } else {
-                    html += `<li><strong>Duración: </strong><span class="whiteColor">${pista.Duracion}</span></li>`;
+                    html += `<li><strong>Duración: </strong><span>${pista.Duracion}</span></li>`;
                 }
             } else {
                 html += '<div class="divPistas ">';
@@ -234,7 +234,7 @@ const Mostrar = () => {
                 if(parseInt(pista.Duracion) > 180) {
                     html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span></li>`;
                 } else {
-                    html += `<li><strong>Duración: </strong><span class="whiteColor">${pista.Duracion}</span></li>`;
+                    html += `<li><strong>Duración: </strong><span>${pista.Duracion}</span></li>`;
                 }
             }
             
