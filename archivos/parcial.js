@@ -38,7 +38,7 @@
 // };
 
 // Discos:
-let discos = [], discoMayor;
+let discos = [], discoMayor = 0, cantDiscos = 0;
 
 // Función Cargar:
 const Cargar = () => {
@@ -53,7 +53,10 @@ const Cargar = () => {
             Codigo: '',
             Pistas: [],
             CantidadPistas: 0,
-            DuracionTotal: 0
+            DuracionTotal: 0,
+            NumeroDisco: 0,
+            MayorDuracion: false,
+            Seleccionado: false,
         }    
 
         //Validación de "Nombre:"
@@ -64,7 +67,7 @@ const Cargar = () => {
             }
         } while (nombreDisco==null || nombreDisco=='');
         disco.Nombre = nombreDisco;    // Luego de validar el nombre del disco, lo ingreso a "Nombre:";
-
+        cantDiscos ++;
 
         //Validación de "Autor:"
         do {
@@ -128,6 +131,7 @@ const Cargar = () => {
 
         }while(confirmarPistas)
         
+        disco.NumeroDisco = cantDiscos;
         discos.push(disco);    // Ingreso el objeto "disco{Nombre,Autor,etc}" al array "discos[]";
 
         confirmar = confirm('¿Queres Ingresár el disco numero ' + (acumDisco+1) + '°?');
@@ -139,42 +143,101 @@ const Cargar = () => {
         console.table(discos);
 };
 
+
 // Función Mostrar:
 const Mostrar = () => {
     // Variable para ir armando la cadena:
-    let html = '', pistaMayor;
+    let cant= '', pistaMayor;
+    let html = '';
+    
     // Cositas:
-    for(let disco of discos) {
-        if(DiscoMasExtenso(disco.DuracionTotal) == true) {
-            html += "<div class='box box-shadow-red' ><ul>";
-        } else {
-            html += "<div class='box box-shadow' ><ul>";
-        }
-        html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
-        <li><strong>Autor: </strong>${disco.Autor}</li>
-        <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
-        <li><strong>Cantidad de pistas: </strong>${disco.CantidadPistas}</li>
-        <li><strong>Duracion total del disco: </strong>${disco.DuracionTotal}</li>
-        <li><strong>Promedio de duracion del disco: </strong>${disco.DuracionTotal/disco.CantidadPistas}</li>`;
+    
+    cant += `Mis Discos (${cantDiscos})`;
+    document.getElementById('discos').innerHTML = cant;
 
-        pistaMayor = disco.Pistas[0];
+    for(let disco of discos) {
+        let i = 0;
+            while(i < 3) {
+                disco.MayorDuracion = MarcarMayor(disco.DuracionTotal);
+                i++;
+            }
+    }
+    
+    for(let disco of discos) {
+        disco.MayorDuracion = MarcarMayor(disco.DuracionTotal);
+        if(disco.MayorDuracion == true){
+            if(disco.Seleccionado == true) {
+                html += `<div class='discoMayor seleccionado'><img src="/media/vinilo-r.png" alt="Disco"><ul>`;
+                html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
+                <li><strong>Autor: </strong>${disco.Autor}</li>
+                <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
+                <li><strong>Pistas: </strong>${disco.CantidadPistas}</li>
+                <li><strong>Duracion total: </strong>${disco.DuracionTotal}</li>
+                <li><strong>Promedio de duracion: </strong>${disco.DuracionTotal/disco.CantidadPistas}</li>`;
+            } else {
+                html += `<div class='discoMayor'><img src="/media/vinilo-r.png" alt="Disco"><ul>`;
+                html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
+                <li><strong>Autor: </strong>${disco.Autor}</li>
+                <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
+                <li><strong>Pistas: </strong>${disco.CantidadPistas}</li>
+                <li><strong>Duracion total: </strong>${disco.DuracionTotal}</li>
+                <li><strong>Promedio de duracion: </strong>${disco.DuracionTotal/disco.CantidadPistas}</li>`;
+            }
+            
+        } else {
+            if(disco.Seleccionado == true){
+                html += `<div class='disco seleccionado'><img src="/media/vinilo-v.png" alt="Disco"><ul>`;
+            html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
+            <li><strong>Autor: </strong>${disco.Autor}</li>
+            <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
+            <li><strong>Pistas: </strong>${disco.CantidadPistas}</li>
+            <li><strong>Duracion total: </strong>${disco.DuracionTotal}</li>
+            <li><strong>Promedio de duracion: </strong>${disco.DuracionTotal/disco.CantidadPistas}</li>`;
+            } else {
+                html += `<div class='disco'><img src="/media/vinilo-v.png" alt="Disco"><ul>`;
+                html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
+                <li><strong>Autor: </strong>${disco.Autor}</li>
+                <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
+                <li><strong>Pistas: </strong>${disco.CantidadPistas}</li>
+                <li><strong>Duracion total: </strong>${disco.DuracionTotal}</li>
+                <li><strong>Promedio de duracion: </strong>${disco.DuracionTotal/disco.CantidadPistas}</li>`;
+            }
+            
+        }
+        
+
+        if(cantDiscos > 0) {
+            pistaMayor = disco.Pistas[0];
         for (let i = 1; i<disco.Pistas.length; i++){
             if (pistaMayor.Duracion < disco.Pistas[i].Duracion){
                 pistaMayor = disco.Pistas[i];
             }
         }
+        }
+        
 
         html += `<li><strong>Pista con mayor duración: </strong>${pistaMayor.Nombre} (${pistaMayor.Duracion} seg)</li>`;
 
 
         for(let pista of disco.Pistas) {
-            html += '<div class="divPistas " >';
-            html += `<li><strong>Pista: </strong><span class="whiteColor">${pista.Nombre}</span></li>`;
-            if(parseInt(pista.Duracion) > 180) {
-                html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span></li>`;
+            if(disco.MayorDuracion == true) {
+                html += '<div class="divPistasMayor ">';
+                html += `<li><strong>Pista: </strong><span class="whiteColor">${pista.Nombre}</span></li>`;
+                if(parseInt(pista.Duracion) > 180) {
+                    html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span></li>`;
+                } else {
+                    html += `<li><strong>Duración: </strong><span class="whiteColor">${pista.Duracion}</span></li>`;
+                }
             } else {
-                html += `<li><strong>Duración: </strong><span class="whiteColor">${pista.Duracion}</span></li>`;
+                html += '<div class="divPistas ">';
+                html += `<li><strong>Pista: </strong><span class="whiteColor">${pista.Nombre}</span></li>`;
+                if(parseInt(pista.Duracion) > 180) {
+                    html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span></li>`;
+                } else {
+                    html += `<li><strong>Duración: </strong><span class="whiteColor">${pista.Duracion}</span></li>`;
+                }
             }
+            
             html += '</div>';
         }
         
@@ -185,20 +248,8 @@ const Mostrar = () => {
 
     // Si modificaste el nombre de la variable para ir armando la cadena, también hacelo acá:
     document.getElementById('info').innerHTML = html; // <--- ahí es acá
+    
 };
-
-const DiscoMasExtenso = (d) => {
-    let resultado;
-    if(discoMayor == null || d > discoMayor){
-        discoMayor = d;
-        resultado = true;
-    }
-    else {
-        resultado = false;
-    }
-
-    return resultado;
-}
 
 const CodigoNumerico = () => {
     let codigoBuscado = parseInt(prompt("Ingrese el código del disco YA INGRESADO que quiere ver:"));
@@ -206,45 +257,30 @@ const CodigoNumerico = () => {
 
     for (let disco of discos) {
         if (disco.Codigo === codigoBuscado) {
-            let html = "<div class='box box-shadow'><ul>";
-            html += `<li><strong>Disco: </strong>${disco.Nombre}</li>
-            <li><strong>Autor: </strong>${disco.Autor}</li>
-            <li><strong>Codigo Único: </strong>${disco.Codigo}</li>
-            <li><strong>Cantidad de pistas: </strong>${disco.CantidadPistas}</li>
-            <li><strong>Duración total del disco: </strong>${disco.DuracionTotal}</li>
-            <li><strong>Promedio de duración del disco: </strong>${disco.DuracionTotal / disco.CantidadPistas}</li>`;
-
-            
-            let pistaMayor = disco.Pistas[0];
-            for (let i = 1; i < disco.Pistas.length; i++) {
-                if (pistaMayor.Duracion < disco.Pistas[i].Duracion) {
-                    pistaMayor = disco.Pistas[i];
-                }
-            }
-            html += `<li><strong>Pista con mayor duración: </strong>${pistaMayor.Nombre} (${pistaMayor.Duracion} seg)</li>`;
-
-            
-            for (let pista of disco.Pistas) {
-                html += '<div class="divPistas">';
-                html += `<li><strong>Pista: </strong><span class="whiteColor">${pista.Nombre}</span></li>`;
-                if (parseInt(pista.Duracion) > 180) {
-                    html += `<li><strong>Duración: </strong><span class="redColor">${pista.Duracion}</span></li>`;
-                } else {
-                    html += `<li><strong>Duración: </strong><span class="whiteColor">${pista.Duracion}</span></li>`;
-                }
-                html += '</div>';
-            }
-
-            html += "</ul></div>";
-            document.getElementById('info').innerHTML = html;
+            disco.Seleccionado = true;
             encontrado = true;
-            break;
+        } else {
+            disco.Seleccionado = false;
         }
+        
+    }
+    
+    if(encontrado) {
+        alert("Se encontró una coincidencia, pulsa 'Mostrar discos' para verlo");
     }
 
     if (!encontrado) {
         alert("No se encontró ningún disco con ese código.");
     }
 };
+
+const MarcarMayor = (d) => {
+    if(discoMayor <= parseInt(d)) {
+        discoMayor = parseInt(d);
+        return true;
+    } else if(discoMayor > parseInt(d)) {
+        return false;
+    }
+}
 
 // Todas las funciones que necesites:

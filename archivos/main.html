@@ -7,19 +7,35 @@
         <link rel="shortcut icon" href="favicon.ico" />
         <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="display-screen">
     <header>
         <h1>Programación I | Parcial 1 | <span class="bg-green">PERALTA, JUAN IGNACIO</span> | <span class="bg-pink">LEBEDA, LUCA</span></h1>
     </header>
     <main>
-        <div class="flex-box">
-            <button class="button" onclick="Cargar();">Cargar nuevo disco</button>
-            <button class="button" onclick="Mostrar();">Mostrar discos</button>
-            <button class="button" onclick="CodigoNumerico();">Buscar por código numérico</button>
+        <div id="m-section" class="flex-box">
+            <div id="menu" class="flex-box">
+                <button class="button" onclick="Cargar();">
+                    <span class="text">Cargar nuevo disco</span>
+                </button>
+                <button class="button" onclick="Mostrar();">
+                    <span class="text">Mostrar discos</span>
+                </button>
+                <button class="button" onclick="CodigoNumerico();">
+                    <span class="text">Buscar disco</span>
+                </button>
+            </div>
+            <div id="content">
+                <h2><span id="discos" class="bg-dark"></span></h2>
+                <div id="info"></div>
+                <script src="parcial.js"></script>
+            </div>
+            
         </div>
-        <h2><span class="bg-dark">Mis discos</span></h2>
-            <div id="info"></div>
-            <script src="parcial.js"></script>
+        
+        <!-- <div class="disco">
+            <img src="/media/vinilo.png" alt="Disco">
+        </div> -->
+
     </main>
     <footer>
          <ul class="flex-box">
