@@ -250,8 +250,16 @@ footer {
 }
 
 @media screen and (width < 950px) {
+
     .disco, .discoMayor {
-        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin: 30px 0px;
+        flex-direction: row;
+        img {
+            width: 150px;
+            height: 150px;
+        }
     }
 
         #menu {
@@ -285,10 +293,15 @@ footer {
         }
         }
     }
+    .seleccionado {
+        outline: 3px solid var(--white);
+        outline-offset: 1px;
+        outline-style: dashed;
     
 }
+}
 
-@media screen and (width < 500px) {
+@media screen and (width < 590px) {
 
     header div {
         width: 90%;
@@ -337,6 +350,11 @@ footer {
 
     .disco, .discoMayor {
         flex-direction: column;
+        width: 100%;
+        img {
+            width: 175px;
+            height: 175px;
+        }
     }
     
     .seleccionado {
