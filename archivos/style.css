@@ -1,9 +1,9 @@
 @font-face {
     font-family: 'karla';
-    src: url(/fonts/Karla.ttf);
+    src: url(fonts/Karla.ttf);
 
     font-family: 'neon';
-    src: url(/fonts/NEON.otf);
+    src: url(fonts/NEON.otf);
 }
 
 
@@ -62,10 +62,10 @@ header div {
         h1 {
             filter: opacity(1);
             transition: all 3s;
-            font-size: 2em;
         }
     }
     h1 {
+        font-size: 1.5em;
         filter: opacity(0);
         overflow: hidden;
         transition: all .1s;
@@ -247,6 +247,45 @@ footer {
     to {
         transform: rotate(360deg);
     }
+}
+
+@media screen and (width < 950px) {
+    .disco, .discoMayor {
+        flex-direction: column;
+    }
+
+        #menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        .button {
+            font-size: 1em;
+            padding: 5px;
+            height: 40px;
+        }
+    }
+
+    header div {
+        width: 90%;
+        height: 5vh;
+        padding: 35px 45px;
+        h1 {
+            filter: opacity(1);
+            transition: all 3s;
+            font-size: 1.3em;
+        }
+        &:hover {
+            width: 90%;
+        height: 5vh;
+        padding: 25px 35px;
+        h1 {
+            filter: opacity(1);
+            transition: all 3s;
+            font-size: 1.3em;
+        }
+        }
+    }
+    
 }
 
 @media screen and (width < 500px) {
